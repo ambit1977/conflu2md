@@ -1,0 +1,110 @@
+{
+  "appName": {
+    "message": "Confluence Markdown Downloader",
+    "description": "アプリ名"
+  },
+  "appDescription": {
+    "message": "Confluence のページを Markdown 形式でダウンロードします。",
+    "description": "アプリの説明"
+  },
+  "toggleAuthBtnText": {
+    "message": "認証情報を設定",
+    "description": "認証情報設定ボタンのテキスト"
+  },
+  "emailLabel": {
+    "message": "メールアドレス：",
+    "description": "メールアドレスのラベル"
+  },
+  "apiTokenLabel": {
+    "message": "APIトークン：",
+    "description": "APIトークンのラベル"
+  },
+  "apiTokenLinkText": {
+    "message": "(発行する)",
+    "description": "APIトークン発行リンクのテキスト"
+  },
+  "contentSourceSelect": {
+    "message": "コンテンツ取得の起点",
+    "description": "プルダウンメニューのラベル"
+  },
+  "optionSpace": {
+    "message": "スペースホーム配下",
+    "description": "スペースホーム配下のオプション"
+  },
+  "optionPage": {
+    "message": "今見ているページ配下",
+    "description": "今見ているページ配下のオプション"
+  },
+  "loadTreeBtnText": {
+    "message": "スペースのコンテンツを読み込む",
+    "description": "読み込みボタンのテキスト"
+  },
+  "downloadBtnText": {
+    "message": "選択したページをダウンロード",
+    "description": "ダウンロードボタンのテキスト"
+  },
+  "saveCurrentPageBtnText": {
+    "message": "今見ているページを保存",
+    "description": "現在のページ保存ボタンのテキスト"
+  },
+  "domainLabel": {
+    "message": "ドメイン",
+    "description": "ドメインのラベル"
+  },
+  "spaceKeyLabel": {
+    "message": "スペースキー",
+    "description": "スペースキーのラベル"
+  },
+  "domainNotFound": {
+    "message": "ドメインが取得できませんでした",
+    "description": "ドメイン未取得時の表示"
+  },
+  "missingInfo": {
+    "message": "必要な情報が不足しています。",
+    "description": "情報不足時の警告"
+  },
+  "noPageSelected": {
+    "message": "少なくとも1つのページを選択してください。",
+    "description": "ページ未選択時の警告"
+  },
+  "optionLevel": {
+    "message": "階層を指定して読込",
+    "description": "Option to load by specified level (sibling pages)"
+  },
+  "selectLevelInstruction": {
+    "message": "ページリストを読み込みたい階層にチェックを入れてください",
+    "description": "Instruction text for selecting sibling pages"
+  },
+  "loadSelectedBtnText": {
+    "message": "選択したページ配下を読み込む",
+    "description": "同階層選択後の読み込みボタンのテキスト"
+  },
+  "pageIdNotExtracted": {
+    "message": "URLからページIDが抽出できませんでした: $1",
+    "description": "Message when page ID extraction fails"
+  },
+  "msg_no_content": {
+    "message": "ページID $1 のコンテンツが取得できませんでした。",
+    "description": "コンテンツ取得失敗時のメッセージ"
+  },
+  "msg_conversion_error": {
+    "message": "ページID $1 のMarkdown変換中にエラーが発生しました: $2",
+    "description": "Markdown変換エラーのメッセージ"
+  },
+  "msg_fetch_error": {
+    "message": "ページID $1 の取得中にエラーが発生しました: $2",
+    "description": "ページ取得エラーのメッセージ"
+  },
+  "msg_combined_error": {
+    "message": "統合Markdown処理中にエラーが発生しました: $1",
+    "description": "統合エラーのメッセージ"
+  },
+  "lowSpeedModeLabel": {
+    "message": "低速モード:",
+    "description": "低速モードチェックボックスのラベル"
+  },
+  "limitExceededMessage": {
+    "message": "上限$1件を超えました。リスト表示されないページがあります。",
+    "description": "全体の取得件数上限に達した場合の警告メッセージ"
+  }
+}

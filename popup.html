@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title data-i18n="appName">Confluence Markdown Downloader</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2 data-i18n="appName">Confluence Markdown Downloader</h2>
+  
+  <!-- ドメイン・スペースキーの表示 -->
+  <p id="domainDisplay"></p>
+  <p id="spaceKeyDisplay"></p>
+  
+  <!-- 認証情報設定 -->
+  <button id="toggleAuthBtn" data-i18n="toggleAuthBtnText">認証情報を設定</button>
+  <div id="authContainer">
+    <form id="configForm">
+      <label data-i18n="emailLabel">メールアドレス：</label>
+      <input type="email" id="email" required><br>
+      <label data-i18n="apiTokenLabel">APIトークン：</label>
+      <a id="apiTokenLink" href="https://id.atlassian.com/manage-profile/security/api-tokens" target="_blank" data-i18n="apiTokenLinkText">(発行する)</a>
+      <input type="text" id="apiToken" required><br>
+    </form>
+  </div>
+  
+  <!-- コンテンツ読み込みボタン -->
+  <button type="button" id="loadTreeBtn" data-i18n="loadTreeBtnText">スペースのコンテンツを読み込む</button>
+  
+  <!-- プルダウンと低速モードチェックボックスを横並びに -->
+  <div id="contentSourceWrapper">
+    <div id="contentSourceContainer">
+      <select id="contentSourceSelect">
+        <option value="space" data-i18n="optionSpace">スペースホーム配下</option>
+        <option value="page" data-i18n="optionPage">今見ているページ配下</option>
+        <option value="level" data-i18n="optionLevel">階層を指定して読込</option>
+      </select>
+    </div>
+    <div id="lowSpeedModeContainer">
+      <label for="lowSpeedMode" data-i18n="lowSpeedModeLabel">低速モード:</label>
+      <input type="checkbox" id="lowSpeedMode">
+    </div>
+  </div>
+  
+  <!-- 階層指定時の同階層ページ一覧を表示 -->
+  <div id="siblingListContainer" style="display:none;"></div>
+  <!-- ボタン：同階層から選択したページの配下を読み込む -->
+  <button id="loadSelectedBtn" style="display:none;" data-i18n="loadSelectedBtnText">選択したページ配下を読み込む</button>
+  
+  <!-- プログレスバーと進捗表示 -->
+  <div id="progressContainer">
+    <div id="progressBar"></div>
+    <span id="progressCount"></span>
+  </div>
+  
+  <!-- ページツリー表示領域 -->
+  <div id="pageTreeContainer"></div>
+  
+  <!-- ダウンロード・保存ボタン -->
+  <button id="downloadBtn" data-i18n="downloadBtnText">選択したページをダウンロード</button>
+  <button id="saveCurrentPageBtn" data-i18n="saveCurrentPageBtnText">今見ているページを保存</button>
+  
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+{
+  "appName": {
+    "message": "Confluence Markdown Downloader",
+    "description": "App name"
+  },
+  "appDescription": {
+    "message": "Download Confluence pages as Markdown.",
+    "description": "Application description"
+  },
+  "toggleAuthBtnText": {
+    "message": "Set Authentication",
+    "description": "Button text for setting authentication"
+  },
+  "emailLabel": {
+    "message": "Email Address:",
+    "description": "Label for email address"
+  },
+  "apiTokenLabel": {
+    "message": "API Token:",
+    "description": "Label for API token"
+  },
+  "apiTokenLinkText": {
+    "message": "(Generate)",
+    "description": "Link text for API token generation"
+  },
+  "contentSourceSelect": {
+    "message": "Content Source",
+    "description": "Dropdown label for content source selection"
+  },
+  "optionSpace": {
+    "message": "Space Homepage",
+    "description": "Option for space homepage content"
+  },
+  "optionPage": {
+    "message": "Current Page",
+    "description": "Option for current page content"
+  },
+  "loadTreeBtnText": {
+    "message": "Load Space Content",
+    "description": "Button text for loading space content"
+  },
+  "downloadBtnText": {
+    "message": "Download Selected Pages",
+    "description": "Button text for downloading selected pages"
+  },
+  "saveCurrentPageBtnText": {
+    "message": "Save Current Page",
+    "description": "Button text for saving the current page"
+  },
+  "domainLabel": {
+    "message": "Domain",
+    "description": "Label for domain"
+  },
+  "spaceKeyLabel": {
+    "message": "Space Key",
+    "description": "Label for space key"
+  },
+  "domainNotFound": {
+    "message": "Domain not found",
+    "description": "Message shown when the domain cannot be determined"
+  },
+  "missingInfo": {
+    "message": "Missing required information.",
+    "description": "Alert when necessary information is missing"
+  },
+  "noPageSelected": {
+    "message": "Please select at least one page.",
+    "description": "Alert when no page is selected"
+  },
+  "optionLevel": {
+    "message": "Load by Specified Level",
+    "description": "Option for loading sibling pages"
+  },
+  "selectLevelInstruction": {
+    "message": "Please check the level(s) you wish to load from",
+    "description": "Instruction for selecting sibling pages"
+  },
+  "loadSelectedBtnText": {
+    "message": "Load selected pages",
+    "description": "Button text for loading tree for selected sibling pages"
+  },
+  "pageIdNotExtracted": {
+    "message": "Could not extract a page ID from the URL: $1",
+    "description": "Message when page ID extraction fails"
+  },
+  "msg_no_content": {
+    "message": "Content for page ID $1 could not be retrieved.",
+    "description": "Message when content cannot be fetched for a page"
+  },
+  "msg_conversion_error": {
+    "message": "Error converting Markdown for page ID $1: $2",
+    "description": "Message for errors during Markdown conversion"
+  },
+  "msg_fetch_error": {
+    "message": "Error fetching page ID $1: $2",
+    "description": "Message for errors during page fetching"
+  },
+  "msg_combined_error": {
+    "message": "Error processing combined Markdown: $1",
+    "description": "Message for errors during combined Markdown processing"
+  },
+  "lowSpeedModeLabel": {
+    "message": "Low Speed Mode:",
+    "description": "Label for the low speed mode checkbox"
+  },
+  "limitExceededMessage": {
+    "message": "Exceeded the limit of $1 pages. Some pages may not be displayed.",
+    "description": "Message when total page limit is reached"
+  }
+}
