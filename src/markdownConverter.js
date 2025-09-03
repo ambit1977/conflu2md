@@ -33,15 +33,7 @@ export function simpleHtmlToMarkdown(html, domain) {
 
   // 5. Replace various Confluence macros with appropriate Markdown
   
-  // 5a. Replace code snippet macros with Markdown code blocks
-  html = html.replace(
-    /<ac:structured-macro[^>]*ac:name=["']code["'][^>]*>[\s\S]*?<ac:plain-text-body[^>]*>\s*<!\[CDATA\[([\s\S]*?)\]\]>\s*<\/ac:plain-text-body>[\s\S]*?<\/ac:structured-macro>/gi,
-    (match, code) => {
-      return "```\n" + code.trim() + "\n```\n";
-    }
-  );
-
-  // 5b. Replace code block macros (alternative format)
+  // 5a. Replace code block macros with language (process first to avoid conflicts)
   html = html.replace(
     /<ac:structured-macro[^>]*ac:name=["']code["'][^>]*>[\s\S]*?<ac:parameter[^>]*ac:name=["']language["'][^>]*>(.*?)<\/ac:parameter>[\s\S]*?<ac:plain-text-body[^>]*>\s*<!\[CDATA\[([\s\S]*?)\]\]>\s*<\/ac:plain-text-body>[\s\S]*?<\/ac:structured-macro>/gi,
     (match, language, code) => {
@@ -49,21 +41,29 @@ export function simpleHtmlToMarkdown(html, domain) {
     }
   );
 
-  // 5c. Replace info/note/warning macros
+  // 5b. Replace code snippet macros with Markdown code blocks (without language)
+  html = html.replace(
+    /<ac:structured-macro[^>]*ac:name=["']code["'][^>]*>[\s\S]*?<ac:plain-text-body[^>]*>\s*<!\[CDATA\[([\s\S]*?)\]\]>\s*<\/ac:plain-text-body>[\s\S]*?<\/ac:structured-macro>/gi,
+    (match, code) => {
+      return "```\n" + code.trim() + "\n```\n";
+    }
+  );
+
+  // 5c. Replace expand macro (collapsible content) - process before generic macros
+  html = html.replace(
+    /<ac:structured-macro[^>]*ac:name=["']expand["'][^>]*>[\s\S]*?<ac:parameter[^>]*ac:name=["']title["'][^>]*>\s*(.*?)\s*<\/ac:parameter>[\s\S]*?<ac:rich-text-body[^>]*>\s*([\s\S]*?)\s*<\/ac:rich-text-body>[\s\S]*?<\/ac:structured-macro>/gi,
+    (match, title, content) => {
+      const cleanContent = content.replace(/<[^>]+>/g, '').trim();
+      return `<details>\n<summary>${title.trim()}</summary>\n\n${cleanContent}\n\n</details>\n`;
+    }
+  );
+
+  // 5d. Replace info/note/warning macros
   html = html.replace(
     /<ac:structured-macro[^>]*ac:name=["'](info|note|warning|tip)["'][^>]*>[\s\S]*?<ac:rich-text-body[^>]*>([\s\S]*?)<\/ac:rich-text-body>[\s\S]*?<\/ac:structured-macro>/gi,
     (match, type, content) => {
       const cleanContent = content.replace(/<[^>]+>/g, '').trim();
       return `> **${type.toUpperCase()}**: ${cleanContent}\n`;
-    }
-  );
-
-  // 5d. Replace expand macro (collapsible content)
-  html = html.replace(
-    /<ac:structured-macro[^>]*ac:name=["']expand["'][^>]*>[\s\S]*?<ac:parameter[^>]*ac:name=["']title["'][^>]*>(.*?)<\/ac:parameter>[\s\S]*?<ac:rich-text-body[^>]*>([\s\S]*?)<\/ac:rich-text-body>[\s\S]*?<\/ac:structured-macro>/gi,
-    (match, title, content) => {
-      const cleanContent = content.replace(/<[^>]+>/g, '').trim();
-      return `<details>\n<summary>${title.trim()}</summary>\n\n${cleanContent}\n\n</details>\n`;
     }
   );
 
@@ -210,8 +210,8 @@ export function simpleHtmlToMarkdown(html, domain) {
   // 11. Convert paragraph tags (<p>) to newline (if not already processed)
   html = html.replace(/<p[^>]*>(.*?)<\/p>/gi, "$1\n");
 
-  // 12. Remove any remaining HTML tags
-  html = html.replace(/<[^>]+>/g, '');
+  // 12. Remove any remaining HTML tags (but preserve details/summary for expand macros)
+  html = html.replace(/<(?!\/?(?:details|summary)\b)[^>]+>/g, '');
 
   // 13. Replace HTML entities using an extended mapping
   const htmlEntityMap = {
