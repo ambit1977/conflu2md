@@ -220,14 +220,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ダウンロードボタン：ファイル名生成
   document.getElementById('downloadBtn').addEventListener('click', () => {
+    console.log('Download button clicked');
     const selected = Array.from(document.querySelectorAll('.page-checkbox'))
       .filter(chk => chk.checked);
+    console.log('Selected checkboxes:', selected.length);
     if (!selected.length) {
       alert(chrome.i18n.getMessage("noPageSelected"));
       return;
     }
     let fileName = "";
     const contentSource = document.getElementById('contentSourceSelect').value;
+    console.log('Content source:', contentSource);
     if (contentSource === "page") {
       // 今見ているページ配下のモード：ファイル名は「スペースキー_今見ているページのタイトル」
       fileName = `${window.detectedSpaceKey}_${window.downloadRootTitle || "page"}.md`;
@@ -236,14 +239,22 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       fileName = "download.md";
     }
-    chrome.runtime.sendMessage({
+    console.log('Generated filename:', fileName);
+    const messageData = {
       domain: window.detectedDomain,
       email: document.getElementById('email').value,
       apiToken: document.getElementById('apiToken').value,
       pageIds: selected.map(chk => chk.dataset.pageId),
       spaceName: window.spaceName,
       fileName: fileName
-    }, res => console.log(res.message));
+    };
+    console.log('Sending message to background:', messageData);
+    chrome.runtime.sendMessage(messageData, res => {
+      console.log('Response from background:', res);
+      if (chrome.runtime.lastError) {
+        console.error('Runtime error:', chrome.runtime.lastError);
+      }
+    });
   });
 
   // 保存ボタン（単体）

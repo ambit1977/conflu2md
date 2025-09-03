@@ -6,8 +6,17 @@ import { updateMentionsInMarkdown } from './src/mentionResolver.js'; // 利用�
 console.log("Starting background.js with combined pages Markdown generation.");
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  console.log("Message received in background:", request);
   const { email, apiToken, pageIds } = request;
   const domain = request.domain;
+  
+  // 必要な情報の検証
+  if (!domain || !email || !apiToken || !pageIds || pageIds.length === 0) {
+    console.error("Missing required information:", { domain, email: !!email, apiToken: !!apiToken, pageIds });
+    sendResponse({ message: 'Missing required information' });
+    return true;
+  }
+  
   const authHeader = 'Basic ' + btoa(`${email}:${apiToken}`);
   console.log("Using domain:", domain);
   console.log("Email:", email);
@@ -87,6 +96,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       return blobToDataURL(blob);
     })
     .then((downloadUrl) => {
+      console.log("Download URL generated:", downloadUrl.substring(0, 100) + "...");
       let fileName = "";
       if (pageIds.length === 1) {
         const firstMarkdown = globalPagesMarkdown[0] || "";
@@ -99,18 +109,24 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       } else {
         fileName = `${request.spaceName || "combined_pages"}.md`;
       }
+      console.log("Download filename:", fileName);
       chrome.downloads.download({
         url: downloadUrl,
         filename: fileName,
         conflictAction: 'uniquify'
       }, (downloadId) => {
         console.log("Download initiated. Download ID:", downloadId);
+        if (chrome.runtime.lastError) {
+          console.error("Download error:", chrome.runtime.lastError);
+        }
       });
     })
     .catch(error => {
+      console.error("Error in background processing:", error);
       console.warn(chrome.i18n.getMessage("msg_combined_error", [error.toString()]));
     });
 
+  console.log("Sending response: Processing started");
   sendResponse({ message: 'Processing started' });
   return true;
 });
